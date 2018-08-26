@@ -27,8 +27,35 @@ module.exports = {
                 use: {
                     loader: "handlebars-loader"
                 }
+            },
+            {
+                test: /\.scss$/,
+                exclude: /node_modules/,
+                use:[
+                    {loader: "style-loader"},
+                    {loader: "css-loader"},
+                    {loader: "sass-loader"}
+                ]
+            },
+            // {
+            //     test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
+            //     use: {
+            //         loader: "file-loader",
+            //     }
+            // },
+            {
+                test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
+                use: {
+                    loader: "url-loader",
+                    options:{
+                        limit: 10000,
+                        name: "[name].[ext]",
+                    },
+                }
             }
+
         ]
     }
+
     
 };
