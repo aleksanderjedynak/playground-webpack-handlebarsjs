@@ -1,3 +1,5 @@
+import "../sass/components/_users.scss"
+
 import $ from "jquery";
 import template from "./views/users.hbs";
 

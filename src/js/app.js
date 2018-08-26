@@ -1,3 +1,5 @@
+import "../sass/main.scss";
+
 import $ from "jquery";
 import getUsersHTML from "./Users";
 
