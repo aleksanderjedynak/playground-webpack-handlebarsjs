@@ -1,4 +1,5 @@
 const { resolve } = require('path');
+const etwp = require('extract-text-webpack-plugin');
 
 module.exports = {
 
@@ -31,11 +32,15 @@ module.exports = {
             {
                 test: /\.scss$/,
                 exclude: /node_modules/,
-                use:[
-                    {loader: "style-loader"},
-                    {loader: "css-loader"},
-                    {loader: "sass-loader"}
-                ]
+                // use:[
+                //     {loader: "style-loader"},
+                //     {loader: "css-loader"},
+                //     {loader: "sass-loader"}
+                // ],
+                use: etwp.extract({
+                    fallback: "style-loader",
+                    use: "css-loader!sass-loader",
+                })
             },
             // {
             //     test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
@@ -55,7 +60,12 @@ module.exports = {
             }
 
         ]
-    }
+    },
+
+    plugins: [
+        // new etwp({}),
+        new etwp("main.css")
+    ]
 
     
 };
