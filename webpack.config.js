@@ -7,7 +7,7 @@ module.exports = function(env){
 
     var prod = env !== undefined && env.production === true;
     var dev = env !== undefined && env.development === true;
-    ``
+    
     return {
         // entry: "./src/js/app.js",
         entry: {
