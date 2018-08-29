@@ -1,5 +1,6 @@
 const { resolve } = require('path');
 const etwp = require('extract-text-webpack-plugin');
+const HtmwWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
 
@@ -32,6 +33,7 @@ module.exports = {
             {
                 test: /\.scss$/,
                 exclude: /node_modules/,
+                //TODO: tutaj uzywamy plugina loaderow do styli 
                 // use:[
                 //     {loader: "style-loader"},
                 //     {loader: "css-loader"},
@@ -42,6 +44,7 @@ module.exports = {
                     use: "css-loader!sass-loader",
                 })
             },
+            //TODO: file-loader dziala podobnie jak url-loder 
             // {
             //     test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
             //     use: {
@@ -63,8 +66,11 @@ module.exports = {
     },
 
     plugins: [
-        // new etwp({}),
-        new etwp("main.css")
+        new etwp("main.css"),
+        //TODO: ten plagin jesli mu nie podamy template sam wygeneruje plik index.html
+        new HtmwWebpackPlugin({
+            template: "./src/index.html"
+        }),
     ]
 
     
