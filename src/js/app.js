@@ -2,7 +2,7 @@ import "../sass/main.scss";
 
 /* wsparcie dla starczych przegladarek aby obslugiwaly .then() [npm es6-promise]*/
 import "es6-promise/auto";
-import $ from "jquery";
+// import $ from "jquery";
 /* asynchroniczne ladowanie kiedy klikniemy */
 // import getUsersHTML from "./Users"; 
 
