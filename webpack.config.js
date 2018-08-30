@@ -9,6 +9,7 @@ module.exports = function(env){
     var dev = env !== undefined && env.development === true;
     
     return {
+        /** rozdzialamy aby mieć app i vendors */ 
         // entry: "./src/js/app.js",
         entry: {
             app: "./src/js/app.js",
@@ -19,6 +20,7 @@ module.exports = function(env){
             publicPath: dev ? "/dist/" : "",
             path: resolve(__dirname, "dist/"),
             // filename: "bundle.js"
+            /** tak aby miec chunkhash w nazwach plikow -> przydaje sie na produkcje */
             filename: prod ? "[name].[chunkhash].js" : "[name].js" 
         },
 
@@ -27,6 +29,7 @@ module.exports = function(env){
         module: {
             rules:[
                 {
+                    /** javascript, kompilacja do js5, importowanie plikow */
                     test: /\.js$/,
                     exclude: /node_modules/,
                     use: {
@@ -38,6 +41,7 @@ module.exports = function(env){
                     }
                 },
                 {
+                    /** handlebars */
                     test: /\.hbs$/,
                     exclude: /node_modules/,
                     use: {
@@ -45,20 +49,22 @@ module.exports = function(env){
                     }
                 },
                 {
+                    /** scss */
                     test: /\.scss$/,
                     exclude: /node_modules/,
-                    /*tutaj uzywamy plugina loaderow do styli*/
+                    /** tutaj uzywamy plugina loaderow do styli*/
                     // use:[
                     //     {loader: "style-loader"},
                     //     {loader: "css-loader"},
                     //     {loader: "sass-loader"}
                     // ],
+                    /** extract-text-webpack-plugin z loaderami */
                     use: etwp.extract({
                         fallback: "style-loader",
                         use: "css-loader!sass-loader",
                     })
                 },
-                /*file-loader dziala podobnie jak url-loder*/ 
+                /** file-loader dziala podobnie jak url-loder*/
                 // {
                 //     test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
                 //     use: {
@@ -66,6 +72,7 @@ module.exports = function(env){
                 //     }
                 // },
                 {
+                     /** url-loader ma wiecej opcji niz file-loader*/
                     test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
                     use: {
                         loader: "url-loader",
@@ -80,15 +87,17 @@ module.exports = function(env){
         },
 
         plugins: [
+            /** tak podczepiamy extract-text-webpack-plugin */
             new etwp("main.css"),
-            /*ten plagin jesli mu nie podamy template sam wygeneruje plik index.html*/
+            /** ten plagin jesli mu nie podamy template sam wygeneruje plik index.html*/
             new HtmwWebpackPlugin({
                 template: "./src/index.html",
             }),
-            /*wyciągamy jQuery z app i zostawimay tylko w vendors*/
+            /** wyciągamy jQuery z app i zostawimay tylko w vendors*/
             new webpack.optimize.CommonsChunkPlugin({
                 name: "vendors",
             }),
+            /** moduly bez importow  */
             new webpack.ProvidePlugin({
                 $: "jquery",
                 jQuery: "jquery",
