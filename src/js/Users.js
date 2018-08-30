@@ -22,6 +22,8 @@ function getUsers() {
 
 function getUsersHTML() {
 
+    console.log('getUsersHTML');
+
     return getUsers();
 
 }
